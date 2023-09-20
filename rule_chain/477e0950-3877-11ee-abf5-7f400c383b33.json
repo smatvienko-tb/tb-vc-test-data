@@ -1,0 +1,421 @@
+{
+  "entityType" : "RULE_CHAIN",
+  "entity" : {
+    "additionalInfo" : {
+      "description" : ""
+    },
+    "configuration" : null,
+    "debugMode" : true,
+    "externalId" : null,
+    "firstRuleNodeId" : null,
+    "id" : {
+      "entityType" : "RULE_CHAIN",
+      "id" : "477e0950-3877-11ee-abf5-7f400c383b33"
+    },
+    "name" : "Generator",
+    "root" : false,
+    "type" : "CORE"
+  },
+  "metaData" : {
+    "connections" : [ {
+      "fromIndex" : 0,
+      "toIndex" : 6,
+      "type" : "Success"
+    }, {
+      "fromIndex" : 1,
+      "toIndex" : 2,
+      "type" : "Success"
+    }, {
+      "fromIndex" : 3,
+      "toIndex" : 7,
+      "type" : "Success"
+    }, {
+      "fromIndex" : 4,
+      "toIndex" : 5,
+      "type" : "Success"
+    }, {
+      "fromIndex" : 6,
+      "toIndex" : 1,
+      "type" : "Success"
+    }, {
+      "fromIndex" : 7,
+      "toIndex" : 4,
+      "type" : "Success"
+    }, {
+      "fromIndex" : 8,
+      "toIndex" : 10,
+      "type" : "Success"
+    }, {
+      "fromIndex" : 9,
+      "toIndex" : 11,
+      "type" : "Failure"
+    }, {
+      "fromIndex" : 9,
+      "toIndex" : 11,
+      "type" : "Success"
+    }, {
+      "fromIndex" : 10,
+      "toIndex" : 9,
+      "type" : "Success"
+    }, {
+      "fromIndex" : 11,
+      "toIndex" : 13,
+      "type" : "Success"
+    }, {
+      "fromIndex" : 13,
+      "toIndex" : 12,
+      "type" : "Success"
+    } ],
+    "firstNodeIndex" : null,
+    "nodes" : [ {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 54,
+        "layoutY" : 281
+      },
+      "configuration" : {
+        "msgCount" : 1000001,
+        "periodInSeconds" : 300,
+        "scriptLang" : "JS",
+        "jsScript" : "var msg = { \n    temp: -2, \n    humidity: 77,\n    random: Math.random(),\n    timestamp: new Date().getTime(),\n    poem: 'Mała muszka spod Łopuszki\\nchciała mieć różowe nóżki,\\nróżdżką nóżki czarowała,lecz wciąż nóżki czarne miała.\\n– Po cóż czary, moja muszko?\\nRuszże móżdżkiem, a nie różdżką!\\nWyrzuć wreszcie różdżkę wróżki\\ni unurzaj w różu nóżki!'\n    \n};\nvar metadata = { \n    json: '{\"name\":\"John\", \"age\":30, \"car\":null}',\n    source: \"generator\"\n\n};\nvar msgType = \"POST_TELEMETRY_REQUEST\";\n\nreturn { msg: msg, metadata: metadata, msgType: msgType };",
+        "tbelScript" : "var msg = { temp: 42, humidity: 77 };\nvar metadata = { data: 40 };\nvar msgType = \"POST_TELEMETRY_REQUEST\";\n\nreturn { msg: msg, metadata: metadata, msgType: msgType };",
+        "queueName" : "HighPriority",
+        "originatorId" : "530c3010-3879-11ee-abf5-7f400c383b33",
+        "originatorType" : "DEVICE"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47a62ac0-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "5m HighPriority",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.debug.TbMsgGeneratorNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 564,
+        "layoutY" : 281
+      },
+      "configuration" : {
+        "interval" : 600,
+        "telemetryPrefix" : "messageCountHp"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47a6ee10-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "10m counter HP",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.action.TbMsgCountNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 848,
+        "layoutY" : 281
+      },
+      "configuration" : {
+        "scriptLang" : "JS",
+        "jsScript" : "return '\\nIncoming message:\\n' + JSON.stringify(msg) + '\\nIncoming metadata:\\n' + JSON.stringify(metadata);",
+        "tbelScript" : "return '\\nIncoming message:\\n' + JSON.stringify(msg) + '\\nIncoming metadata:\\n' + JSON.stringify(metadata);"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47a76340-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "log me HP",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.action.TbLogNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 56,
+        "layoutY" : 357
+      },
+      "configuration" : {
+        "msgCount" : 1000001,
+        "periodInSeconds" : 333,
+        "scriptLang" : "JS",
+        "jsScript" : "var msg = { temp: 21.5, humidity: 67.3 };\nvar metadata = { \n    data: \"Gdy Pomorze nie pomoże, to pomoże może morze, a gdy morze nie pomoże, to pomoże może Gdańsk.\",\n    generated_ts: new Date()\n};\nvar msgType = \"POST_TELEMETRY_REQUEST\";\n\nreturn { msg: msg, metadata: metadata, msgType: msgType };",
+        "tbelScript" : "var msg = { temp: 42, humidity: 77 };\nvar metadata = { data: 40 };\nvar msgType = \"POST_TELEMETRY_REQUEST\";\n\nreturn { msg: msg, metadata: metadata, msgType: msgType };",
+        "queueName" : "SequentialByOriginator",
+        "originatorId" : "1e176f20-3877-11ee-abf5-7f400c383b33",
+        "originatorType" : "TENANT"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47a7d870-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "5m33s Sequential",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.debug.TbMsgGeneratorNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 566,
+        "layoutY" : 359
+      },
+      "configuration" : {
+        "interval" : 600,
+        "telemetryPrefix" : "messageCountSq"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : false,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47a874b0-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "10m counter SQ",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.action.TbMsgCountNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 845,
+        "layoutY" : 358
+      },
+      "configuration" : {
+        "scriptLang" : "JS",
+        "jsScript" : "return '\\nIncoming message:\\n' + JSON.stringify(msg) + '\\nIncoming metadata:\\n' + JSON.stringify(metadata);",
+        "tbelScript" : "return '\\nIncoming message:\\n' + JSON.stringify(msg) + '\\nIncoming metadata:\\n' + JSON.stringify(metadata);"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47a910f0-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "log me Sq",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.action.TbLogNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 316,
+        "layoutY" : 283
+      },
+      "configuration" : {
+        "queueName" : "HighPriority"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47a98620-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "CP HP",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.flow.TbCheckpointNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 315,
+        "layoutY" : 357
+      },
+      "configuration" : {
+        "queueName" : "SequentialByOriginator"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47aa2260-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "CP SQ",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.flow.TbCheckpointNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 54,
+        "layoutY" : 440
+      },
+      "configuration" : {
+        "msgCount" : 1000002,
+        "periodInSeconds" : 300,
+        "scriptLang" : "JS",
+        "jsScript" : "var msg = { \n    temp: -2, \n    humidity: 77,\n    random: Math.random(),\n    timestamp: new Date().getTime(),\n    poem: 'Mała muszka spod Łopuszki\\nchciała mieć różowe nóżki,\\nróżdżką nóżki czarowała,lecz wciąż nóżki czarne miała.\\n– Po cóż czary, moja muszko?\\nRuszże móżdżkiem, a nie różdżką!\\nWyrzuć wreszcie różdżkę wróżki\\ni unurzaj w różu nóżki!'\n    \n};\nvar metadata = { \n    json: '{\"name\":\"John\", \"age\":30, \"car\":null}',\n    source: \"generator\"\n\n};\nvar msgType = \"POST_TELEMETRY_REQUEST\";\n\nreturn { msg: msg, metadata: metadata, msgType: msgType };",
+        "tbelScript" : "var msg = { temp: 42, humidity: 77 };\nvar metadata = { data: 40 };\nvar msgType = \"POST_TELEMETRY_REQUEST\";\n\nreturn { msg: msg, metadata: metadata, msgType: msgType };",
+        "queueName" : "Main",
+        "originatorId" : "1f2e8470-3877-11ee-abf5-7f400c383b33",
+        "originatorType" : "USER"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47aa9790-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "5m Main",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.debug.TbMsgGeneratorNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 567,
+        "layoutY" : 438
+      },
+      "configuration" : {
+        "useSystemReportsServer" : true,
+        "reportsServerEndpointUrl" : null,
+        "useReportConfigFromMessage" : false,
+        "reportConfig" : {
+          "baseUrl" : "https://tbqa.cloud",
+          "useDashboardTimewindow" : true,
+          "timewindow" : {
+            "selectedTab" : 1,
+            "history" : {
+              "historyType" : 0,
+              "interval" : 1000,
+              "timewindowMs" : 86400000
+            }
+          },
+          "namePattern" : "report-%d{yyyy-MM-dd_HH:mm:ss}",
+          "type" : "pdf",
+          "timezone" : "Europe/Warsaw",
+          "useCurrentUserCredentials" : true,
+          "userId" : "df843e00-32d6-11ee-9073-35e6c1c13691",
+          "dashboardId" : "6c495e90-3879-11ee-b6c5-dd8cce90d040",
+          "state" : ""
+        }
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47ab0cc0-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "Air Quality Monitoring report",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.report.TbGenerateReportNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 316,
+        "layoutY" : 439
+      },
+      "configuration" : {
+        "queueName" : "Main"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47ab81f0-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "CP Main",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.flow.TbCheckpointNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 562,
+        "layoutY" : 556
+      },
+      "configuration" : {
+        "queueName" : "HighPriority"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47abf720-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "CP Main-Hp",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.flow.TbCheckpointNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 857,
+        "layoutY" : 636
+      },
+      "configuration" : {
+        "scriptLang" : "JS",
+        "jsScript" : "return '\\nIncoming message:\\n' + JSON.stringify(msg) + '\\nIncoming metadata:\\n' + JSON.stringify(metadata);",
+        "tbelScript" : "return '\\nIncoming message:\\n' + JSON.stringify(msg) + '\\nIncoming metadata:\\n' + JSON.stringify(metadata);"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47ac6c50-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "log me Report",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.action.TbLogNode"
+    }, {
+      "additionalInfo" : {
+        "description" : "",
+        "layoutX" : 561,
+        "layoutY" : 640
+      },
+      "configuration" : {
+        "queueName" : "SequentialByOriginator"
+      },
+      "configurationVersion" : 0,
+      "createdTime" : 0,
+      "debugMode" : true,
+      "externalId" : null,
+      "id" : {
+        "entityType" : "RULE_NODE",
+        "id" : "47ad2fa0-3877-11ee-b6c5-dd8cce90d040"
+      },
+      "name" : "CP Hp-Sq",
+      "ruleChainId" : null,
+      "singletonMode" : false,
+      "type" : "org.thingsboard.rule.engine.flow.TbCheckpointNode"
+    } ],
+    "ruleChainConnections" : null
+  },
+  "relations" : [ ],
+  "attributes" : {
+    "SERVER_SCOPE" : [ ]
+  }
+}
